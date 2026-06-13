@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.0...v1.0.1) (2026-06-13)
+
+
+### Bug Fixes
+
+* disable PR/issue comments in semantic-release github plugin ([b137019](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/b1370198d56be369197703f26f269a38434e62e3))
+
 # 1.0.0 (2026-06-13)
 
 
