@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.2...v1.0.3) (2026-06-13)
+
+
+### Bug Fixes
+
+* add test space symbol ([35e977b](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/35e977b278655628f6c0229478ce68d45cf18f0e))
+
 ## [1.0.2](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.1...v1.0.2) (2026-06-13)
 
 
