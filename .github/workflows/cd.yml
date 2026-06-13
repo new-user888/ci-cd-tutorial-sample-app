@@ -1,0 +1,57 @@
+name: CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Image tag to deploy (e.g. v1.1.0 or latest)"
+        required: true
+        default: latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: ${{ secrets.VM_PORT }}
+          script: |
+            docker pull ghcr.io/${{ github.repository }}:${{ inputs.version }}
+            docker stop sample-app || true
+            docker rm sample-app || true
+            docker run -d --name sample-app -p 8000:8000 \
+              -e APP_VERSION=${{ inputs.version }} \
+              ghcr.io/${{ github.repository }}:${{ inputs.version }}
+            sleep 5
+            curl -f http://localhost:8000/
+
+  notify:
+    needs: deploy
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram notification
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ "${{ needs.deploy.result }}" = "success" ]; then
+            ICON="✅"
+            STATUS="succeeded"
+          else
+            ICON="❌"
+            STATUS="failed"
+          fi
+
+          TEXT="$ICON Deployment $STATUS
+          Version: ${{ inputs.version }}
+          Triggered by: ${{ github.actor }}
+          Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+            --data-urlencode "chat_id=$CHAT_ID" \
+            --data-urlencode "text=$TEXT"

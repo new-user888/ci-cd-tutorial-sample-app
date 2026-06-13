@@ -1,3 +1,5 @@
+import os
+
 from flask import json, jsonify
 from app import app
 from app import db
@@ -5,7 +7,7 @@ from app.models import Menu
 
 @app.route('/')
 def home():
-	return jsonify({ "status": "ok" })
+	return jsonify({ "status": "ok", "version": os.environ.get("APP_VERSION", "unknown") })
 
 @app.route('/menu')
 def menu():
