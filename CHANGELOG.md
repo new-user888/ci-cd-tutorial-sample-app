@@ -1,3 +1,13 @@
+## [1.0.4](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.3...v1.0.4) (2026-06-16)
+
+
+### Bug Fixes
+
+* fix tests for succeded ci ([a63452c](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/a63452c0ebc9499be4fb0b6e73f43d261026d29f))
+* readme ([3f7b75b](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/3f7b75b1a741aa0b9d3aa78d375fb866d8d07c32))
+* test failed ci ([4a80826](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/4a80826620bd22c34c1ac74a9f98829080a12db1))
+* test readme fix ([fabe178](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/fabe1789eabbc9ac6dd2ea61c197fa03bf7b2f31))
+
 ## [1.0.3](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.2...v1.0.3) (2026-06-13)
 
 
