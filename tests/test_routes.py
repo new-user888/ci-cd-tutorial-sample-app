@@ -32,7 +32,7 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.mimetype, 'application/json')
         body = json.loads(response.data)
-        self.assertEqual(body['status'], 'false')
+        self.assertEqual(body['status'], 'ok')
 
     def test_menu_empty(self):
         response = self.app.get('/menu', follow_redirects=True)
