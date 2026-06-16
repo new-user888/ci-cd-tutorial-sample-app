@@ -61,7 +61,7 @@ $ python seed.py
 ```
 
 ## Running tests
-
+ 
 Run:
 
 ```sh
@@ -142,7 +142,7 @@ $ git push heroku master
 $ heroku run flask db upgrade
 $ heroku run python seed.py
 $ heroku open
-```
+``` 
 
 or use the automated deploy feature:
 
