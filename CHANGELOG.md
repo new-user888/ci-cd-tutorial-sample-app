@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.4...v1.1.0) (2026-06-23)
+
+
+### Bug Fixes
+
+* correct test_home assertion to match the actual /  response (status=ok) ([830e67f](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/830e67ff1d645dbe27442fc42d2caeebb6dde767))
+* test badge change ([fb159e1](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/fb159e145aac2f67349e3d1cb313d6aba1fac694))
+
+
+### Features
+
+* auto-rollback to last known-good version on failed health check ([365c7ce](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/365c7cee907bdda48d253627cbb86a62ca8f0e4b))
+
 ## [1.0.4](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.3...v1.0.4) (2026-06-16)
 
 
