@@ -12,7 +12,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy over SSH
+      - name: Deploy over SSH (with auto-rollback on failed health check)
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VM_HOST }}
@@ -20,14 +20,38 @@ jobs:
           key: ${{ secrets.VM_SSH_KEY }}
           port: ${{ secrets.VM_PORT }}
           script: |
-            docker pull ghcr.io/${{ github.repository }}:${{ inputs.version }}
-            docker stop sample-app || true
-            docker rm sample-app || true
-            docker run -d --name sample-app -p 8000:8000 \
-              -e APP_VERSION=${{ inputs.version }} \
-              ghcr.io/${{ github.repository }}:${{ inputs.version }}
+            set -e
+            NEW_VERSION="${{ inputs.version }}"
+            PREV_VERSION=$(cat ~/.peex-current-version 2>/dev/null || echo "")
+
+            deploy_version() {
+              docker pull ghcr.io/${{ github.repository }}:"$1"
+              docker stop sample-app || true
+              docker rm sample-app || true
+              docker run -d --name sample-app -p 8000:8000 \
+                -e APP_VERSION="$1" \
+                ghcr.io/${{ github.repository }}:"$1"
+            }
+
+            deploy_version "$NEW_VERSION"
             sleep 5
-            curl -f http://localhost:8000/
+
+            if curl -f http://localhost:8000/; then
+              echo "$NEW_VERSION" > ~/.peex-current-version
+              echo "Deployment succeeded: $NEW_VERSION"
+            else
+              echo "Health check failed for $NEW_VERSION"
+              if [ -n "$PREV_VERSION" ]; then
+                echo "Auto-rolling back to last known-good version: $PREV_VERSION"
+                deploy_version "$PREV_VERSION"
+                sleep 5
+                curl -f http://localhost:8000/
+                echo "Rollback complete - service restored on $PREV_VERSION"
+              else
+                echo "No previous known-good version recorded - cannot auto-rollback"
+              fi
+              exit 1
+            fi
 
   notify:
     needs: deploy
