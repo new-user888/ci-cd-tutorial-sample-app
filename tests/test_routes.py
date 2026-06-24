@@ -29,10 +29,10 @@ class BasicTests(unittest.TestCase):
 
     def test_home(self):
         response = self.app.get('/', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
         self.assertEqual(response.mimetype, 'application/json')
         body = json.loads(response.data)
-        self.assertEqual(body['status'], 'ok')
+        self.assertEqual(body['status'], 'broken')
 
     def test_menu_empty(self):
         response = self.app.get('/menu', follow_redirects=True)
