@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.1.0...v1.1.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* deliberately break / health check to demo CD auto-rollback ([81f5d3f](https://github.com/new-user888/ci-cd-tutorial-sample-app/commit/81f5d3f2efc17fe124652900f27b25378e8b60b8))
+
 # [1.1.0](https://github.com/new-user888/ci-cd-tutorial-sample-app/compare/v1.0.4...v1.1.0) (2026-06-23)
 
 
